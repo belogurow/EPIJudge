@@ -10,9 +10,25 @@ import java.util.List;
 public class EvenOddArray {
 
   public static void evenOdd(List<Integer> A) {
-    // TODO - you fill in here.
+    Integer oddIdx = null;
+    for (int i = 0, len = A.size(); i < len - 1; i++) {
+      if (A.get(i) % 2 == 1 && oddIdx == null) {
+        oddIdx = i;
+      }
+
+      if (A.get(i + 1) % 2 == 0) {
+        if (oddIdx != null) {
+          int temp = A.get(oddIdx);
+          A.set(oddIdx, A.get(i + 1));
+          A.set(i + 1, temp);
+
+          oddIdx++;
+        }
+      }
+    }
     return;
   }
+
   @EpiTest(testDataFile = "even_odd_array.tsv")
   public static void evenOddWrapper(TimedExecutor executor, List<Integer> A)
       throws Exception {
