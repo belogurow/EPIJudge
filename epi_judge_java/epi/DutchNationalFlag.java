@@ -10,9 +10,30 @@ public class DutchNationalFlag {
   public enum Color { RED, WHITE, BLUE }
 
   public static void dutchFlagPartition(int pivotIndex, List<Color> A) {
-    // TODO - you fill in here.
-    return;
+    for (int left = 0, right = A.size() - 1, i = 0; i <= right;) {
+      switch (A.get(i)) {
+        case RED -> {
+          swap(A, i, left);
+          i += 1;
+          left += 1;
+        }
+        case WHITE -> {
+          i += 1;
+        }
+        case BLUE -> {
+          swap(A, i, right);
+          right -= 1;
+        }
+      }
+    }
   }
+
+  private static void swap(List<Color> A, int i, int j) {
+    Color temp = A.get(i);
+    A.set(i, A.get(j));
+    A.set(j, temp);
+  }
+
   @EpiTest(testDataFile = "dutch_national_flag.tsv")
   public static void dutchFlagPartitionWrapper(TimedExecutor executor,
                                                List<Integer> A, int pivotIdx)
